@@ -6,29 +6,27 @@
             "type": "text"
         }
     },
-    "solr-sink": {
-        "type": "local",
-        "outputDir": "/tmp/suroserver/solr",
-        "writer": {
-            "type": "text"
-        }
-    },
-    "cassandra-sink": {
-        "type": "local",
-        "outputDir": "/tmp/suroserver/coc",
-        "writer": {
-            "type": "text"
-        }
-    },
     "s3-sink": {
-        "type": "local",
-        "outputDir": "/tmp/suroserver/s3",
-        "writer": {
-            "type": "text"
+        "type": "s3",
+        "bucket": "scm-suro-test",
+        "prefixFormatter": {
+            "type": "dynamic",
+            "format": "date('es/sgm'/yyyy/yyyyMM/yyyyMMdd)"
+        },
+        "localFileSink": {
+            "type": "local",
+            "outputDir": "/tmp/suroserver/s3",
+            "minPercentFreeDisk": 10,
+            "writer": {
+                "type": "text"
+            }
         }
     },
-    "logger-sink": {
-        "type": "local",
+    "sqs-sink": {
+        "type": "sqs",
+        "region": "eu-west-1",
+        "client.id": "sqs-sink-id",
+        "queueName": "sqs_sink",
         "outputDir": "/tmp/suroserver/logger",
         "writer": {
             "type": "text"
